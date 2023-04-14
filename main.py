@@ -1,4 +1,5 @@
 import requests
+import os
 from twilio.rest import Client
 
 STOCK = "TCS"
@@ -6,11 +7,13 @@ COMPANY_NAME = "Tata Consultancy Services"
 
 STOCK_PRICE_API_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
-TWILLIO_SID = "YOUR TWILLIO SID"
+TWILLIO_SID = os.getenv("twillio_sid")
 
-STOCK_PRICE_API_KEY = "YOUR STOCK PRICE API KEY"
-NEWS_API_KEY = "YOUR NEWS API KEY"
-TWILLIO_AUTH_TOKEN = "YOUR TWILLIO AUTHORIZATION KEY"
+STOCK_PRICE_API_KEY = os.getenv("stock_price_api_key")
+NEWS_API_KEY = os.getenv("news_api_key")
+TWILLIO_AUTH_TOKEN = os.getenv("twillio_auth_token")
+TWILLIO_VERIFIED_PHONE_NO = os.getenv("twillio_verified_phone_no")
+TWILLIO_VIRTUAL_PHONE_NO = os.getenv("twillio_virtual_phone_no")
 
 stock_price_parameters = {
     "function":"TIME_SERIES_DAILY_ADJUSTED",
@@ -48,8 +51,8 @@ if abs(diff_percent) > 5:
     for article in formatted_articles:
         message = client.messages.create(
             body=article,
-            from_="+17472710343",
-            to="+917795744005"
+            from_="TWILLIO_VERIFIED_PHONE_NO",
+            to="TWILLIO_VERIFIED_PHONE_NO"
         )
 
 
